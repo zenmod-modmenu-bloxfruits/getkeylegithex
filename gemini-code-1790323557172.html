@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="vi" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LegitHax KeyAuth - Get Key</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #090d16;
+            color: #f3f4f6;
+        }
+        .glass-panel {
+            background: rgba(17, 24, 39, 0.7);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .glow-effect {
+            box-shadow: 0 0 40px -10px rgba(99, 102, 241, 0.25);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-slate-900 via-[#090d16] to-[#05070a]">
+
+    <!-- Header -->
+    <header class="w-full border-b border-white/5 bg-slate-950/40 backdrop-blur-md sticky top-0 z-50">
+        <div class="max-w-4xl mx-auto px-4 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 to-violet-500 flex items-center justify-center font-bold text-lg text-white shadow-lg shadow-indigo-500/30">
+                    A
+                </div>
+                <div>
+                    <div class="font-bold text-sm sm:text-base flex items-center gap-2">
+                        LegitHax KeyAuth
+                        <span class="text-[10px] bg-indigo-500/20 text-indigo-400 border border-indigo-500/30 px-2 py-0.5 rounded-full font-semibold uppercase tracking-wider">GETKEY</span>
+                    </div>
+                    <div class="text-xs text-slate-400 hidden sm:block">Hệ thống cấp mã kích hoạt tự động theo IP</div>
+                </div>
+            </div>
+            <button onclick="openAdminModal()" class="flex items-center space-x-2 text-xs font-semibold bg-white/5 hover:bg-white/10 border border-white/10 px-3.5 py-2 rounded-xl transition duration-200">
+                <i class="fa-solid fa-lock text-indigo-400"></i>
+                <span class="hidden sm:inline">Admin Login</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-xl mx-auto px-4 py-8 w-full flex-grow flex items-center">
+        <div class="w-full glass-panel rounded-3xl p-6 sm:p-8 glow-effect relative overflow-hidden">
+            
+            <!-- Trạng thái 1: Chưa bấm (Form chính) -->
+            <div id="step-home" class="space-y-6">
+                <div class="text-center space-y-2">
+                    <div class="w-14 h-14 bg-indigo-500/10 border border-indigo-500/20 rounded-2xl mx-auto flex items-center justify-center text-indigo-400 text-2xl shadow-inner">
+                        <i class="fa-solid fa-key"></i>
+                    </div>
+                    <h2 class="text-2xl font-bold tracking-tight">Lấy Key Kích Hoạt</h2>
+                    <p class="text-sm text-slate-400 max-w-sm mx-auto">Vượt qua liên kết rút gọn một lần để nhận License Key sử dụng trong 24 giờ.</p>
+                </div>
+
+                <!-- Thông số cấu hình -->
+                <div class="space-y-3 bg-white/[0.02] border border-white/5 rounded-2xl p-4 text-sm">
+                    <div class="flex justify-between items-center py-1 border-b border-white/5">
+                        <span class="text-slate-400 flex items-center gap-2"><i class="fa-solid fa-globe w-4 text-indigo-400"></i> Địa chỉ IP:</span>
+                        <span id="user-ip" class="font-mono text-indigo-300 font-medium">Đang quét...</span>
+                    </div>
+                    <div class="flex justify-between items-center py-1 border-b border-white/5">
+                        <span class="text-slate-400 flex items-center gap-2"><i class="fa-solid fa-layer-group w-4 text-indigo-400"></i> Ứng dụng:</span>
+                        <select class="bg-slate-900 border border-white/10 rounded-lg px-2.5 py-1 text-xs text-slate-200 focus:outline-none focus:border-indigo-500">
+                            <option>Tất cả / Mặc định</option>
+                        </select>
+                    </div>
+                    <div class="flex justify-between items-center py-1">
+                        <span class="text-slate-400 flex items-center gap-2"><i class="fa-regular fa-clock w-4 text-indigo-400"></i> Thời hạn Key:</span>
+                        <span class="font-semibold text-emerald-400">24 Giờ (1 Ngày)</span>
+                    </div>
+                </div>
+
+                <!-- Tính năng nổi bật nhỏ -->
+                <div class="grid grid-cols-3 gap-3 text-center text-xs">
+                    <div class="bg-white/[0.02] border border-white/5 p-3 rounded-xl">
+                        <i class="fa-solid fa-bolt text-amber-400 text-base mb-1"></i>
+                        <div class="font-semibold text-slate-200">Tự động</div>
+                        <div class="text-[10px] text-slate-400">Cấp ngay lập tức</div>
+                    </div>
+                    <div class="bg-white/[0.02] border border-white/5 p-3 rounded-xl">
+                        <i class="fa-solid fa-shield-halved text-indigo-400 text-base mb-1"></i>
+                        <div class="font-semibold text-slate-200">Gán theo IP</div>
+                        <div class="text-[10px] text-slate-400">Bảo mật thiết bị</div>
+                    </div>
+                    <div class="bg-white/[0.02] border border-white/5 p-3 rounded-xl">
+                        <i class="fa-solid fa-rotate-right text-emerald-400 text-base mb-1"></i>
+                        <div class="font-semibold text-slate-200">Không mất Key</div>
+                        <div class="text-[10px] text-slate-400">Xem lại trong 24h</div>
+                    </div>
+                </div>
+
+                <!-- Hướng dẫn -->
+                <div class="bg-indigo-950/20 border border-indigo-500/20 rounded-2xl p-4 text-xs space-y-2 text-indigo-200/80">
+                    <div class="font-semibold flex items-center gap-2 text-indigo-300">
+                        <i class="fa-solid fa-circle-info"></i> Hướng dẫn các bước lấy Key:
+                    </div>
+                    <div class="grid gap-1.5 pl-5 list-disc">
+                        <div>1. Bấm vào nút <b>"Bắt đầu Vượt Link Lấy Key"</b> bên dưới.</div>
+                        <div>2. Hoàn thành xác thực rút gọn trên trang liên kết.</div>
+                        <div>3. Sau khi xong, hệ thống sẽ tự cấp Key cho thiết bị của bạn.</div>
+                    </div>
+                </div>
+
+                <!-- Nút thao tác chính -->
+                <button onclick="startGetKeyProcess()" class="w-full py-4 rounded-2xl bg-gradient-to-r from-indigo-600 via-violet-600 to-indigo-700 font-bold text-white shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40 hover:scale-[1.01] active:scale-[0.99] transition duration-200 flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-arrow-right-to-bracket"></i> Bắt đầu Vượt Link Lấy Key
+                </button>
+            </div>
+
+            <!-- Trạng thái 2: Đang xác thực (Loading) -->
+            <div id="step-loading" class="hidden py-12 text-center space-y-6">
+                <div class="relative w-20 h-20 mx-auto">
+                    <div class="absolute inset-0 border-4 border-indigo-500/20 rounded-full"></div>
+                    <div class="absolute inset-0 border-4 border-indigo-500 border-t-transparent rounded-full animate-spin"></div>
+                    <div class="absolute inset-0 flex items-center justify-center text-indigo-400">
+                        <i class="fa-solid fa-shield text-xl animate-pulse"></i>
+                    </div>
+                </div>
+                <div class="space-y-2">
+                    <h3 class="text-xl font-bold">Đang xác thực vượt link...</h3>
+                    <p class="text-sm text-slate-400">Hệ thống đang kiểm tra token và tạo License Key riêng cho IP của bạn.</p>
+                </div>
+                <div class="w-full bg-white/5 rounded-full h-2 overflow-hidden max-w-xs mx-auto">
+                    <div id="progress-bar" class="bg-indigo-500 h-full w-0 transition-all duration-300"></div>
+                </div>
+            </div>
+
+            <!-- Trạng thái 3: Thành công (Hiển thị Key) -->
+            <div id="step-success" class="hidden space-y-6">
+                <div class="text-center space-y-2">
+                    <div class="w-14 h-14 bg-emerald-500/10 border border-emerald-500/20 rounded-2xl mx-auto flex items-center justify-center text-emerald-400 text-2xl shadow-inner">
+                        <i class="fa-solid fa-circle-check"></i>
+                    </div>
+                    <div class="text-xs font-semibold text-emerald-400 uppercase tracking-wider">Key Đang Hoạt Động</div>
+                    <h2 class="text-2xl font-bold tracking-tight">License Key Của Bạn</h2>
+                    <p class="text-sm text-slate-400">IP của bạn đã được xác thực và cấp mã thành công.</p>
+                </div>
+
+                <!-- Khung hiển thị Key -->
+                <div class="space-y-2">
+                    <div class="flex justify-between items-center text-xs text-slate-400 px-1">
+                        <span>Mã Bản Quyền (License Key)</span>
+                        <span class="text-indigo-400 font-mono">Default App</span>
+                    </div>
+                    <div class="flex items-center gap-2 bg-slate-950 border border-white/10 rounded-2xl p-2.5">
+                        <input id="key-input" type="text" readonly value="LHKEY-9948-2849-X9A2-V810" class="w-full bg-transparent font-mono text-sm text-indigo-300 px-2 focus:outline-none select-all">
+                        <button onclick="copyKey()" id="copy-btn" class="bg-indigo-600 hover:bg-indigo-500 text-white font-semibold px-4 py-2.5 rounded-xl text-xs flex items-center gap-1.5 transition shrink-0 shadow-md shadow-indigo-600/30">
+                            <i class="fa-regular fa-copy"></i> Sao chép
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Đồng hồ đếm ngược -->
+                <div class="grid grid-cols-2 gap-3 text-center">
+                    <div class="bg-white/[0.02] border border-white/5 p-3 rounded-2xl">
+                        <div class="text-xs text-slate-400 mb-1">Thời gian còn lại</div>
+                        <div id="countdown-timer" class="font-mono font-bold text-indigo-400 text-lg">23:59:59</div>
+                    </div>
+                    <div class="bg-white/[0.02] border border-white/5 p-3 rounded-2xl">
+                        <div class="text-xs text-slate-400 mb-1">Hết hạn vào lúc</div>
+                        <div id="expire-time" class="font-semibold text-slate-200 text-sm flex items-center justify-center h-7">--:--</div>
+                    </div>
+                </div>
+
+                <!-- Hướng dẫn sử dụng key -->
+                <div class="bg-emerald-950/20 border border-emerald-500/20 rounded-2xl p-4 text-xs space-y-1.5 text-emerald-200/80">
+                    <div class="font-semibold text-emerald-300 flex items-center gap-2">
+                        <i class="fa-solid fa-lightbulb"></i> Cách sử dụng Key:
+                    </div>
+                    <p>Mở phần mềm / Tool Client của bạn lên, dán mã Key ở trên vào ô <b>License Key</b> và bấm <b>Login</b> để bắt đầu sử dụng.</p>
+                </div>
+
+                <button onclick="resetProcess()" class="w-full py-3 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 font-semibold text-xs text-slate-300 transition flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-rotate-left"></i> Tạo / Làm mới Key khác
+                </button>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="w-full py-6 text-center text-xs text-slate-500 border-t border-white/5">
+        © 2026 LegitHax KeyAuth. All rights reserved. Powered by Gtraffic.io API.
+    </footer>
+
+    <!-- Script tương tác -->
+    <script>
+        // Giả lập lấy IP người dùng
+        fetch('https://api.ipify.org?format=json')
+            .then(res => res.json())
+            .then(data => {
+                document.getElementById('user-ip').innerText = data.ip;
+            })
+            .catch(() => {
+                document.getElementById('user-ip').innerText = '115.78.xx.xx';
+            });
+
+        // Thiết lập thời gian hết hạn (24 giờ tới)
+        const expireDate = new Date(new Date().getTime() + 24 * 60 * 60 * 1000);
+        document.getElementById('expire-time').innerText = expireDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+        function startGetKeyProcess() {
+            document.getElementById('step-home').classList.add('hidden');
+            document.getElementById('step-loading').classList.remove('hidden');
+
+            let progress = 0;
+            const bar = document.getElementById('progress-bar');
+            const interval = setInterval(() => {
+                progress += 20;
+                bar.style.width = progress + '%';
+                if (progress >= 100) {
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        document.getElementById('step-loading').classList.add('hidden');
+                        document.getElementById('step-success').classList.remove('hidden');
+                        startCountdown();
+                    }, 400);
+                }
+            }, 300);
+        }
+
+        function copyKey() {
+            const keyInput = document.getElementById('key-input');
+            keyInput.select();
+            keyInput.setSelectionRange(0, 99999);
+            navigator.clipboard.writeText(keyInput.value);
+
+            const copyBtn = document.getElementById('copy-btn');
+            copyBtn.innerHTML = '<i class="fa-solid fa-check"></i> Đã sao chép';
+            copyBtn.classList.remove('bg-indigo-600', 'hover:bg-indigo-500');
+            copyBtn.classList.add('bg-emerald-600');
+
+            setTimeout(() => {
+                copyBtn.innerHTML = '<i class="fa-regular fa-copy"></i> Sao chép';
+                copyBtn.classList.remove('bg-emerald-600');
+                copyBtn.classList.add('bg-indigo-600', 'hover:bg-indigo-500');
+            }, 2000);
+        }
+
+        function startCountdown() {
+            let totalSeconds = 24 * 3600;
+            setInterval(() => {
+                if (totalSeconds <= 0) return;
+                totalSeconds--;
+                let hours = Math.floor(totalSeconds / 3600);
+                let minutes = Math.floor((totalSeconds % 3600) / 60);
+                let seconds = totalSeconds % 60;
+                document.getElementById('countdown-timer').innerText = 
+                    String(hours).padStart(2, '0') + ':' + 
+                    String(minutes).padStart(2, '0') + ':' + 
+                    String(seconds).padStart(2, '0');
+            }, 1000);
+        }
+
+        function resetProcess() {
+            document.getElementById('step-success').classList.add('hidden');
+            document.getElementById('step-home').classList.remove('hidden');
+            document.getElementById('progress-bar').style.width = '0%';
+        }
+
+        function openAdminModal() {
+            alert('Khu vực đăng nhập dành riêng cho Quản trị viên (Admin Login).');
+        }
+    </script>
+</body>
+</html>
